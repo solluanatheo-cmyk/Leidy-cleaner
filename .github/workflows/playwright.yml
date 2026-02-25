@@ -1,3 +1,73 @@
+name: E2E (Playwright)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      DB_TYPE: postgres
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/leidycleaner
+      JWT_SECRET: test_jwt_secret
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: leidycleaner
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 10s --health-timeout 5s --health-retries 5
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (root, backend, frontend)
+        run: |
+          npm ci
+          npm --prefix backend ci
+          npm --prefix frontend ci
+
+      - name: Install Playwright browsers (with deps)
+        run: npx playwright install --with-deps
+
+      - name: Wait for Postgres
+        run: |
+          until nc -z localhost 5432; do echo "waiting for postgres..."; sleep 1; done
+
+      - name: Run migrations and seed
+        run: |
+          DATABASE_URL=${{ env.DATABASE_URL }} DB_TYPE=postgres npm --prefix backend run migrate
+          DATABASE_URL=${{ env.DATABASE_URL }} DB_TYPE=postgres npm --prefix backend run seed
+
+      - name: Start backend and frontend
+        run: |
+          # start backend in background
+          DATABASE_URL=${{ env.DATABASE_URL }} DB_TYPE=postgres npm --prefix backend run dev &
+          # build and start frontend
+          npm --prefix frontend run build
+          npm --prefix frontend run start &
+          # give services a moment to start
+          sleep 8
+
+      - name: Run Playwright E2E tests
+        run: npm run test:e2e
 name: Playwright E2E Tests
 
 on:

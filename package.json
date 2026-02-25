@@ -37,7 +37,8 @@
     "migrate": "npm --prefix backend run migrate",
     "seed": "npm --prefix backend run seed",
     "type-check": "npm --prefix backend run type-check",
-    "docs": "echo 'Veja INDICE_MESTRE_GUIDES.md para documentação completa'"
+    "docs": "echo 'Veja INDICE_MESTRE_GUIDES.md para documentação completa'",
+    "check:setup": "bash scripts/check_setup.sh"
   },
   "type": "commonjs",
   "license": "MIT",

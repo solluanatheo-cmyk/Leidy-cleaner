@@ -4,6 +4,7 @@
   "description": "Backend Express para plataforma Leidy Cleaner",
   "main": "src/index.js",
   "scripts": {
+    "prestart": "mkdir -p logs",
     "build": "tsc",
     "start": "node dist/main.js",
     "start:integrated": "INTEGRATE_NEXT=true node dist/main.js",
