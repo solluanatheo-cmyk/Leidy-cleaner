@@ -98,13 +98,6 @@ app.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
 app.use(sanitize_1.sanitizeInput);
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, '..', 'uploads')));
 (0, swagger_1.setupSwagger)(app);
-if (config_1.NODE_ENV === 'test') {
-    Promise.resolve().then(() => __importStar(require('./db/seed'))).then(m => m.seedDatabase())
-        .catch(err => {
-        logger_advanced_1.logger.error('❌ Seeding on startup failed:', err);
-        process.exit(1);
-    });
-}
 app.get('/health', async (_req, res) => {
     const { cacheService } = await Promise.resolve().then(() => __importStar(require('./services/CacheService')));
     const { ReminderService } = await Promise.resolve().then(() => __importStar(require('./services/ReminderService')));

@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cacheService = exports.CacheService = void 0;
-const redis_1 = __importDefault(require("redis"));
+const redis_1 = require("redis");
 const logger_advanced_1 = require("../utils/logger-advanced");
 class CacheService {
     constructor(config) {
@@ -30,7 +27,7 @@ class CacheService {
      */
     async connect() {
         try {
-            this.client = redis_1.default.createClient({
+            this.client = (0, redis_1.createClient)({
                 socket: {
                     host: this.config.host,
                     port: this.config.port,
@@ -49,15 +46,8 @@ class CacheService {
             this.client.on('ready', () => {
                 logger_advanced_1.logger.info('🔄 Redis pronto para uso');
             });
-            // Aguardar conexão
-            await new Promise((resolve, reject) => {
-                if (!this.client)
-                    return reject(new Error('Cliente Redis não inicializado'));
-                this.client.once('ready', resolve);
-                this.client.once('error', reject);
-                // Timeout de 5 segundos
-                setTimeout(() => reject(new Error('Timeout na conexão Redis')), 5000);
-            });
+            // Iniciar conexão (redis v4 requires explicit connect())
+            await this.client.connect();
         }
         catch (error) {
             logger_advanced_1.logger.error('❌ Falha ao conectar ao Redis:', error);

@@ -11,6 +11,7 @@
     "start:dev": "cross-env NODE_ENV=development tsx watch src/main.ts",
     "dev": "cross-env NODE_ENV=development tsx watch src/main.ts",
     "dev:test": "cross-env NODE_ENV=test tsx watch src/main.ts",
+    "start:test-server": "cross-env NODE_ENV=test tsx src/main.ts",
     "build:frontend": "cd ../frontend && npm ci --silent && npm run build",
     "start:prod": "npm run build && npm run build:frontend && NODE_ENV=production INTEGRATE_NEXT=true node dist/main.js",
     "test": "jest",
@@ -50,6 +51,7 @@
     "cdn:savings": "node -e \"const [REDACTED_TOKEN] = require('./backend/src/services/[REDACTED_TOKEN].js'); console.log(JSON.stringify([REDACTED_TOKEN].[REDACTED_TOKEN](), null, 2))\""
   },
   "dependencies": {
+    "@sentry/node": "^10.40.0",
     "@types/express": "^5.0.6",
     "@types/redis": "^4.0.10",
     "axios": "^1.13.5",

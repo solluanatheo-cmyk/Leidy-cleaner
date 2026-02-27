@@ -14,7 +14,7 @@ async function seedDatabase() {
             const testPool = new Pool({
                 host: process.env.DB_HOST || 'localhost',
                 port: parseInt(process.env.DB_PORT || '5432'),
-                database: process.env.DB_NAME || 'postgres',
+                database: process.env.DB_NAME || (require('../config').NODE_ENV === 'test' ? 'leidycleaner_test' : 'postgres'),
                 user: process.env.DB_USER || 'postgres',
                 password: process.env.DB_PASSWORD || 'postgres',
             });

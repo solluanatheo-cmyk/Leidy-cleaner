@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.closeDatabase = exports.getDatabase = exports.getClient = exports.query = void 0;
+exports.waitForDatabase = waitForDatabase;
 const pg_1 = __importDefault(require("pg"));
 const logger_1 = require("./logger");
 const { Pool } = pg_1.default;
@@ -81,10 +82,25 @@ const initDatabase = () => {
 // Universal query function
 const query = async (text, params) => {
     // Lazy initialization
-    if ((getDBType() === 'sqlite' && !sqliteDb) || (getDBType() !== 'sqlite' && !pool)) {
+    const dbType = getDBType();
+    if ((dbType === 'sqlite' && !sqliteDb) || (dbType !== 'sqlite' && !pool)) {
         initDatabase();
     }
     return new Promise((resolve, reject) => {
+        // Add explicit timeout to prevent hanging
+        const timeoutHandle = setTimeout(() => {
+            reject(new Error(`Database query timeout after 10 seconds: ${text.slice(0, 100)}`));
+        }, 10000);
+        // Helper to clean timeout and resolve
+        const wrappedResolve = (value) => {
+            clearTimeout(timeoutHandle);
+            resolve(value);
+        };
+        // Helper to clean timeout and reject
+        const wrappedReject = (error) => {
+            clearTimeout(timeoutHandle);
+            reject(error);
+        };
         if (getDBType() === 'sqlite' && sqliteDb) {
             // Preprocess SQL for SQLite compatibility
             let sql = text;
@@ -99,15 +115,15 @@ const query = async (text, params) => {
             if (trimmed.startsWith('select')) {
                 sqliteDb.all(sql, params || [], (err, rows) => {
                     if (err)
-                        reject(err);
+                        wrappedReject(err);
                     else
-                        resolve(rows);
+                        wrappedResolve(rows);
                 });
             }
             else {
                 sqliteDb.run(sql, params || [], function (err) {
                     if (err)
-                        return reject(err);
+                        return wrappedReject(err);
                     if (wantsReturning) {
                         // Try to detect table name for INSERT/UPDATE to fetch the affected row
                         const insertMatch = sql.match(/insert\s+into\s+["'`]?([a-zA-Z0-9_]+)["'`]?/i);
@@ -117,9 +133,9 @@ const query = async (text, params) => {
                             const lastID = this && this.lastID;
                             sqliteDb.all(`SELECT * FROM ${table} WHERE id = ?`, [lastID], (err2, rows) => {
                                 if (err2)
-                                    reject(err2);
+                                    wrappedReject(err2);
                                 else
-                                    resolve(rows);
+                                    wrappedResolve(rows);
                             });
                         }
                         else if (updateMatch) {
@@ -127,31 +143,31 @@ const query = async (text, params) => {
                             // Assume the id was passed as the last parameter for updates using RETURNING
                             const idParam = params && params.length ? params[params.length - 1] : null;
                             if (idParam == null)
-                                return resolve([]);
+                                return wrappedResolve([]);
                             sqliteDb.all(`SELECT * FROM ${table} WHERE id = ?`, [idParam], (err2, rows) => {
                                 if (err2)
-                                    reject(err2);
+                                    wrappedReject(err2);
                                 else
-                                    resolve(rows);
+                                    wrappedResolve(rows);
                             });
                         }
                         else {
-                            resolve([]);
+                            wrappedResolve([]);
                         }
                     }
                     else {
-                        resolve([]);
+                        wrappedResolve([]);
                     }
                 });
             }
         }
         else if (pool) {
             pool.query(text, params)
-                .then(result => resolve(result.rows))
-                .catch(reject);
+                .then(result => wrappedResolve(result.rows))
+                .catch(wrappedReject);
         }
         else {
-            reject(new Error('Database not initialized'));
+            wrappedReject(new Error('Database not initialized'));
         }
     });
 };
@@ -180,6 +196,24 @@ const getDatabase = () => {
     }
 };
 exports.getDatabase = getDatabase;
+// wait until the database is accepting connections by issuing a simple query
+async function waitForDatabase(options) {
+    const timeout = options?.timeoutMs ?? 15000;
+    const interval = options?.intervalMs ?? 200;
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        try {
+            await (0, exports.query)('SELECT 1');
+            return;
+        }
+        catch (err) {
+            // if connection refused or similar, pause and retry
+            await new Promise((r) => setTimeout(r, interval));
+            continue;
+        }
+    }
+    throw new Error(`Timed out waiting for database after ${timeout}ms`);
+}
 exports.default = exports.getDatabase;
 const closeDatabaseGracefully = async () => {
     try {

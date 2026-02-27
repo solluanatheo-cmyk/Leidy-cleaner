@@ -30,7 +30,19 @@ async function runMigrations() {
         )`;
         // log the actual SQL in a single string so it can be debugged if it fails
         logger_1.logger.info(`Create migrations table SQL: ${createMigrationsTableSQL.replace(/\n/g, ' ')}`);
-        await (0, database_1.query)(createMigrationsTableSQL);
+        logger_1.logger.info('📊 About to create migrations table...');
+        try {
+            logger_1.logger.info('📊 Calling query with SQL...');
+            const result = await (0, database_1.query)(createMigrationsTableSQL);
+            logger_1.logger.info('📊 Query completed, result:', result);
+            logger_1.logger.info('📊 Migrations table created or already exists');
+        }
+        catch (tableErr) {
+            logger_1.logger.error('❌ Failed to create migrations table. Error type:', typeof tableErr);
+            logger_1.logger.error('❌ Error message:', tableErr instanceof Error ? tableErr.message : String(tableErr));
+            logger_1.logger.error('❌ Full error:', tableErr);
+            throw tableErr;
+        }
         logger_1.logger.info('📋 Migrations tracking table ready');
         // In test environment, clear migrations tracking so tests always apply current SQL
         if (require('../config').NODE_ENV === 'test') {
@@ -44,10 +56,18 @@ async function runMigrations() {
             ? path_1.default.join(__dirname, '../../migrations_sqlite')
             : migrationsDir;
         logger_1.logger.info(`Using migrations dir: ${actualMigrationsDir} (dbType=${dbType})`);
+        // Verify the directory exists
+        if (!fs_1.default.existsSync(actualMigrationsDir)) {
+            logger_1.logger.error(`❌ Migrations directory does not exist: ${actualMigrationsDir}`);
+            throw new Error(`Migrations directory not found: ${actualMigrationsDir}`);
+        }
         const migrationFiles = fs_1.default.readdirSync(actualMigrationsDir)
             .filter(file => file.endsWith('.sql'))
             .sort();
-        logger_1.logger.info(`Found ${migrationFiles.length} migration files`);
+        logger_1.logger.info(`Found ${migrationFiles.length} migration files: ${migrationFiles.join(', ')}`);
+        if (migrationFiles.length === 0) {
+            logger_1.logger.warn('⚠️ No migration files found!');
+        }
         for (const file of migrationFiles) {
             const migrationName = file.replace('.sql', '');
             // Check if migration already executed
@@ -95,11 +115,12 @@ async function runMigrations() {
             logger_1.logger.info(`✨ Migration completed: ${migrationName}`);
         }
         logger_1.logger.info('✅ All migrations completed successfully!');
-        process.exit(0);
     }
     catch (err) {
+        // Log full error to console as well to ensure stack is visible in CI/logs
+        console.error('Full migration error:', err);
         logger_1.logger.error('❌ Migration failed:', err);
-        process.exit(1);
+        throw err; // Re-throw so caller can handle
     }
 }
 // Run if called directly

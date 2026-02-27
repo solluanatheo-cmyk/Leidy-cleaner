@@ -1,0 +1,139 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "Leidy Cleaner Leidy Cleaner" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Leidy Cleaner" [ref=e7]
+        - generic [ref=e8]: Leidy Cleaner
+      - generic [ref=e9]:
+        - link "Home" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - button "Home" [ref=e11]:
+            - img [ref=e12]
+            - text: Home
+        - link "Serviços" [ref=e15] [cursor=pointer]:
+          - /url: /services
+          - button "Serviços" [ref=e16]:
+            - img [ref=e17]
+            - text: Serviços
+        - link "Equipe" [ref=e20] [cursor=pointer]:
+          - /url: /staff-directory
+          - button "Equipe" [ref=e21]:
+            - img [ref=e22]
+            - text: Equipe
+        - link "Galeria" [ref=e27] [cursor=pointer]:
+          - /url: /gallery
+          - button "Galeria" [ref=e28]:
+            - img [ref=e29]
+            - text: Galeria
+        - link "Agendamentos" [ref=e31] [cursor=pointer]:
+          - /url: /bookings
+          - button "Agendamentos" [ref=e32]:
+            - img [ref=e33]
+            - text: Agendamentos
+        - link "Favoritos" [ref=e35] [cursor=pointer]:
+          - /url: /favorites
+          - button "Favoritos" [ref=e36]:
+            - img [ref=e37]
+            - text: Favoritos
+        - link "Personalizar" [ref=e39] [cursor=pointer]:
+          - /url: /personalization
+          - button "Personalizar" [ref=e40]:
+            - img [ref=e41]
+            - text: Personalizar
+        - button "Teste Usuário Cliente" [ref=e45] [cursor=pointer]:
+          - img [ref=e47]
+          - generic [ref=e50]: Teste Usuário
+          - generic [ref=e51]: Cliente
+          - img [ref=e52]
+  - generic [ref=e54]:
+    - generic [ref=e55]:
+      - text: Este site utiliza cookies para melhorar sua experiência. Ao continuar, você concorda com nossa
+      - link "Política de Privacidade" [ref=e56] [cursor=pointer]:
+        - /url: /termos
+      - text: .
+    - button "Aceitar" [ref=e57] [cursor=pointer]
+  - main [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - img [ref=e66]
+            - text: Serviço Premium de Limpeza
+          - heading "Limpeza Profissional que Você Merece" [level=1] [ref=e69]:
+            - text: Limpeza Profissional que
+            - generic [ref=e70]: Você Merece
+          - paragraph [ref=e71]: Serviços de limpeza para residências e empresas. Rápido, confiável e com qualidade garantida!
+        - generic [ref=e72]:
+          - link "Ver Serviços" [ref=e73] [cursor=pointer]:
+            - /url: /services
+            - button "Ver Serviços" [ref=e74]:
+              - text: Ver Serviços
+              - img [ref=e75]
+          - link "Começar Agora" [ref=e77] [cursor=pointer]:
+            - /url: /auth/register
+            - button "Começar Agora" [ref=e78]
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - heading "Por que escolher a Leidy Cleaner?" [level=2] [ref=e84]
+          - paragraph [ref=e85]: Descubra os benefícios de contratar nossos serviços profissionais
+        - generic [ref=e86]:
+          - generic [ref=e88]:
+            - img [ref=e90]
+            - heading "100% Seguro" [level=3] [ref=e92]
+            - paragraph [ref=e93]: Profissionais verificados e pagamentos protegidos
+          - generic [ref=e95]:
+            - img [ref=e97]
+            - heading "Agendamento Rápido" [level=3] [ref=e100]
+            - paragraph [ref=e101]: Marque seu horário em poucos cliques
+          - generic [ref=e103]:
+            - img [ref=e105]
+            - heading "Qualidade Garantida" [level=3] [ref=e107]
+            - paragraph [ref=e108]: Avaliações reais de clientes satisfeitos
+          - generic [ref=e110]:
+            - img [ref=e112]
+            - heading "Equipe Especializada" [level=3] [ref=e117]
+            - paragraph [ref=e118]: Profissionais treinados e experientes
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - heading "Nossos Serviços" [level=2] [ref=e123]
+          - paragraph [ref=e124]: Escolha o serviço ideal e agende com facilidade
+        - generic [ref=e126]:
+          - textbox "Buscar serviços..." [ref=e127]
+          - combobox [ref=e128]:
+            - option "Todas as categorias" [selected]
+            - option "Comercial"
+            - option "Especializada"
+            - option "Residencial"
+          - button "Limpar" [ref=e129] [cursor=pointer]
+      - generic [ref=e134]:
+        - generic [ref=e135]:
+          - heading "Pronto para uma limpeza profissional?" [level=2] [ref=e136]
+          - paragraph [ref=e137]: Agende seu serviço hoje mesmo e tenha uma experiência excepcional
+        - generic [ref=e138]:
+          - link "Criar Conta Grátis" [ref=e139] [cursor=pointer]:
+            - /url: /auth/register
+            - button "Criar Conta Grátis" [ref=e140]:
+              - img [ref=e141]
+              - text: Criar Conta Grátis
+          - link "Falar com Especialista" [ref=e144] [cursor=pointer]:
+            - /url: /contact
+            - button "Falar com Especialista" [ref=e145]
+  - button [ref=e146] [cursor=pointer]:
+    - img [ref=e147]
+  - generic [ref=e153] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e154]:
+      - img [ref=e155]
+    - generic [ref=e158]:
+      - button "Open issues overlay" [ref=e159]:
+        - generic [ref=e160]:
+          - generic [ref=e161]: "0"
+          - generic [ref=e162]: "1"
+        - generic [ref=e163]: Issue
+      - button "Collapse issues badge" [ref=e164]:
+        - img [ref=e165]
+  - alert [ref=e167]
+```

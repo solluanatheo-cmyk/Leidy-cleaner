@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 
 test('cadastro E2E: preencher e submeter formulário', async ({ page }) => {
   // Ajuste a URL se seu dev server estiver em outra porta
-  await page.goto(`${BASE_URL}/cadastro`);
+  await page.goto(`${BASE_URL}/auth/register`);
 
   await page.fill('input[name="name"]', 'Playwright User');
   const email = `pw.user.${Date.now()}@example.com`;

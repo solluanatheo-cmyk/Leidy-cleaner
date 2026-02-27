@@ -1,4 +1,4 @@
-import Redis from 'redis';
+import { createClient, RedisClientType } from 'redis';
 import { logger } from '../utils/logger-advanced';
 
 export interface CacheConfig {
@@ -16,7 +16,7 @@ export interface CacheConfig {
 }
 
 export class CacheService {
-  private client: Redis.RedisClientType | null = null;
+  private client: RedisClientType | null = null;
   private isConnected = false;
   private config: CacheConfig;
 
@@ -42,7 +42,7 @@ export class CacheService {
    */
   async connect(): Promise<void> {
     try {
-      this.client = Redis.createClient({
+      this.client = createClient({
         socket: {
           host: this.config.host,
           port: this.config.port,
@@ -65,16 +65,8 @@ export class CacheService {
         logger.info('🔄 Redis pronto para uso');
       });
 
-      // Aguardar conexão
-      await new Promise<void>((resolve, reject) => {
-        if (!this.client) return reject(new Error('Cliente Redis não inicializado'));
-
-        this.client.once('ready', resolve);
-        this.client.once('error', reject);
-
-        // Timeout de 5 segundos
-        setTimeout(() => reject(new Error('Timeout na conexão Redis')), 5000);
-      });
+      // Iniciar conexão (redis v4 requires explicit connect())
+      await this.client.connect();
 
     } catch (error) {
       logger.error('❌ Falha ao conectar ao Redis:', error);

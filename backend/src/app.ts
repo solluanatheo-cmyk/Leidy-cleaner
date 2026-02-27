@@ -84,14 +84,6 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 setupSwagger(app);
 
-if (NODE_ENV === 'test') {
-  import('./db/seed').then(m => m.seedDatabase())
-    .catch(err => {
-      logger.error('❌ Seeding on startup failed:', err);
-      process.exit(1);
-    });
-}
-
 app.get('/health', async (_req: Request, res: Response) => {
   const { cacheService } = await import('./services/CacheService');
   const { ReminderService } = await import('./services/ReminderService');

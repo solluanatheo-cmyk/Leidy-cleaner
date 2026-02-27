@@ -1,2 +1,3 @@
--- Initialize test database
-CREATE DATABASE vammos_test;
+-- Initialize test database (additional if needed)
+-- primary database created via POSTGRES_DB environment variable
+-- you can create extra fixtures here

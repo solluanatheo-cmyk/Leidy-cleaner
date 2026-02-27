@@ -83,10 +83,29 @@ const initDatabase = () => {
 // Universal query function
 export const query = async (text: string, params?: any[]): Promise<any[]> => {
   // Lazy initialization
-  if ((getDBType() === 'sqlite' && !sqliteDb) || (getDBType() !== 'sqlite' && !pool)) {
+  const dbType = getDBType();
+  if ((dbType === 'sqlite' && !sqliteDb) || (dbType !== 'sqlite' && !pool)) {
     initDatabase();
   }
-  return new Promise((resolve, reject) => {
+  
+  return new Promise<any[]>((resolve, reject) => {
+    // Add explicit timeout to prevent hanging
+    const timeoutHandle = setTimeout(() => {
+      reject(new Error(`Database query timeout after 10 seconds: ${text.slice(0, 100)}`));
+    }, 10000);
+    
+    // Helper to clean timeout and resolve
+    const wrappedResolve = (value: any[]) => {
+      clearTimeout(timeoutHandle);
+      resolve(value);
+    };
+    
+    // Helper to clean timeout and reject
+    const wrappedReject = (error: any) => {
+      clearTimeout(timeoutHandle);
+      reject(error);
+    };
+    
     if (getDBType() === 'sqlite' && sqliteDb) {
       // Preprocess SQL for SQLite compatibility
       let sql = text;
@@ -102,12 +121,12 @@ export const query = async (text: string, params?: any[]): Promise<any[]> => {
 
       if (trimmed.startsWith('select')) {
         sqliteDb.all(sql, params || [], (err: Error | null, rows: any[]) => {
-          if (err) reject(err);
-          else resolve(rows);
+          if (err) wrappedReject(err);
+          else wrappedResolve(rows);
         });
       } else {
         sqliteDb.run(sql, params || [], function(this: any, err: Error | null) {
-          if (err) return reject(err);
+          if (err) return wrappedReject(err);
 
           if (wantsReturning) {
             // Try to detect table name for INSERT/UPDATE to fetch the affected row
@@ -118,32 +137,32 @@ export const query = async (text: string, params?: any[]): Promise<any[]> => {
               const table = insertMatch[1];
               const lastID = this && this.lastID;
               sqliteDb.all(`SELECT * FROM ${table} WHERE id = ?`, [lastID], (err2: Error | null, rows: any[]) => {
-                if (err2) reject(err2);
-                else resolve(rows);
+                if (err2) wrappedReject(err2);
+                else wrappedResolve(rows);
               });
             } else if (updateMatch) {
               const table = updateMatch[1];
               // Assume the id was passed as the last parameter for updates using RETURNING
               const idParam = params && params.length ? params[params.length - 1] : null;
-              if (idParam == null) return resolve([]);
+              if (idParam == null) return wrappedResolve([]);
               sqliteDb.all(`SELECT * FROM ${table} WHERE id = ?`, [idParam], (err2: Error | null, rows: any[]) => {
-                if (err2) reject(err2);
-                else resolve(rows);
+                if (err2) wrappedReject(err2);
+                else wrappedResolve(rows);
               });
             } else {
-              resolve([]);
+              wrappedResolve([]);
             }
           } else {
-            resolve([]);
+            wrappedResolve([]);
           }
         });
       }
     } else if (pool) {
       pool.query(text, params)
-        .then(result => resolve(result.rows))
-        .catch(reject);
+        .then(result => wrappedResolve(result.rows))
+        .catch(wrappedReject);
     } else {
-      reject(new Error('Database not initialized'));
+      wrappedReject(new Error('Database not initialized'));
     }
   });
 };
@@ -169,6 +188,25 @@ export const getDatabase = () => {
     return pool || initDatabase();
   }
 };
+
+
+// wait until the database is accepting connections by issuing a simple query
+export async function waitForDatabase(options?: {timeoutMs?: number; intervalMs?: number}) {
+  const timeout = options?.timeoutMs ?? 15000;
+  const interval = options?.intervalMs ?? 200;
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    try {
+      await query('SELECT 1');
+      return;
+    } catch (err) {
+      // if connection refused or similar, pause and retry
+      await new Promise((r) => setTimeout(r, interval));
+      continue;
+    }
+  }
+  throw new Error(`Timed out waiting for database after ${timeout}ms`);
+}
 
 export default getDatabase;
 const closeDatabaseGracefully = async () => {

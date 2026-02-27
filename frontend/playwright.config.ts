@@ -25,12 +25,17 @@ export default defineConfig({
     // clean any leftover dev server and Next cache before starting; this
     // prevents the lockfile/port conflicts that were causing Playwright to
     // launch a broken server and hang tests.
+    // do *not* reuse an existing server because a previous dev instance may
+    // be running in the wrong NODE_ENV (development) and would incorrectly
+    // answer requests during E2E.
     command: "npm run clean:next && npm run dev",
     cwd: rootDir,
     port: 3000,
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 120_000
   },
+  globalSetup: path.resolve(rootDir, './tests/global-setup.ts'),
+  globalTeardown: path.resolve(rootDir, './tests/global-teardown.ts'),
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } }
   ]

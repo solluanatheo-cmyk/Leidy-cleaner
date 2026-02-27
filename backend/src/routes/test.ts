@@ -1,5 +1,6 @@
 import express from 'express';
 import { query } from '../utils/database';
+import { logger } from '../utils/logger';
 
 const router = express.Router();
 
@@ -20,6 +21,21 @@ router.post('/reset', async (_req, res) => {
     await query('DELETE FROM reviews');
     await query('DELETE FROM company_info');
     // keep migrations table intact so subsequent runs don't reapply them
+
+    // after we clear everything, run the same seed logic used at startup so
+    // that each reset leaves the database in a usable state.  this keeps the
+    // tests from having to replicate the company/services/admin seeding.
+    // `seedDatabase` is written to be safe when called multiple times and will
+    // only insert rows if they don't already exist.
+    try {
+      const { seedDatabase } = await import('../db/seed');
+      await seedDatabase();
+      logger?.info?.('✅ Database reseeded after reset');
+    } catch (seedErr) {
+      // log but don't crash the reset handler; it could still be useful that
+      // the tables were cleared even if the seed failed.
+      console.error('Error reseeding database during reset:', seedErr);
+    }
 
     return res.json({ ok: true });
   } catch (err) {

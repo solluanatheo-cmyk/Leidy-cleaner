@@ -80,3 +80,6 @@ backups/
 # Docker secrets: ignore real secret files, keep examples
 /docker/secrets/*
 !docker/secrets/*.example
+
+# ephemeral file used by Playwright global setup
+frontend/tests/.backend-pid

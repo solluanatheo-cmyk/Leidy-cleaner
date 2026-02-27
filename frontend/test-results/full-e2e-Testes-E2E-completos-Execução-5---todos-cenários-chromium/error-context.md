@@ -1,0 +1,361 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "Leidy Cleaner Leidy Cleaner" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Leidy Cleaner" [ref=e7]
+        - generic [ref=e8]: Leidy Cleaner
+      - generic [ref=e9]:
+        - link "Home" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - button "Home" [ref=e11]:
+            - img [ref=e12]
+            - text: Home
+        - link "Serviços" [ref=e15] [cursor=pointer]:
+          - /url: /services
+          - button "Serviços" [ref=e16]:
+            - img [ref=e17]
+            - text: Serviços
+        - link "Equipe" [ref=e20] [cursor=pointer]:
+          - /url: /staff-directory
+          - button "Equipe" [ref=e21]:
+            - img [ref=e22]
+            - text: Equipe
+        - link "Galeria" [ref=e27] [cursor=pointer]:
+          - /url: /gallery
+          - button "Galeria" [ref=e28]:
+            - img [ref=e29]
+            - text: Galeria
+        - link "Agendamentos" [ref=e31] [cursor=pointer]:
+          - /url: /bookings
+          - button "Agendamentos" [ref=e32]:
+            - img [ref=e33]
+            - text: Agendamentos
+        - link "Favoritos" [ref=e35] [cursor=pointer]:
+          - /url: /favorites
+          - button "Favoritos" [ref=e36]:
+            - img [ref=e37]
+            - text: Favoritos
+        - link "Personalizar" [ref=e39] [cursor=pointer]:
+          - /url: /personalization
+          - button "Personalizar" [ref=e40]:
+            - img [ref=e41]
+            - text: Personalizar
+        - button "Teste Usuário 4 Cliente" [ref=e45] [cursor=pointer]:
+          - img [ref=e47]
+          - generic [ref=e50]: Teste Usuário 4
+          - generic [ref=e51]: Cliente
+          - img [ref=e52]
+  - generic [ref=e54]:
+    - generic [ref=e55]:
+      - text: Este site utiliza cookies para melhorar sua experiência. Ao continuar, você concorda com nossa
+      - link "Política de Privacidade" [ref=e56] [cursor=pointer]:
+        - /url: /termos
+      - text: .
+    - button "Aceitar" [ref=e57] [cursor=pointer]
+  - main [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - img [ref=e66]
+            - text: Serviço Premium de Limpeza
+          - heading "Limpeza Profissional que Você Merece" [level=1] [ref=e69]:
+            - text: Limpeza Profissional que
+            - generic [ref=e70]: Você Merece
+          - paragraph [ref=e71]: Serviços de limpeza para residências e empresas. Rápido, confiável e com qualidade garantida!
+        - generic [ref=e72]:
+          - link "Ver Serviços" [ref=e73] [cursor=pointer]:
+            - /url: /services
+            - button "Ver Serviços" [ref=e74]:
+              - text: Ver Serviços
+              - img [ref=e75]
+          - link "Começar Agora" [ref=e77] [cursor=pointer]:
+            - /url: /auth/register
+            - button "Começar Agora" [ref=e78]
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - heading "Por que escolher a Leidy Cleaner?" [level=2] [ref=e84]
+          - paragraph [ref=e85]: Descubra os benefícios de contratar nossos serviços profissionais
+        - generic [ref=e86]:
+          - generic [ref=e88]:
+            - img [ref=e90]
+            - heading "100% Seguro" [level=3] [ref=e92]
+            - paragraph [ref=e93]: Profissionais verificados e pagamentos protegidos
+          - generic [ref=e95]:
+            - img [ref=e97]
+            - heading "Agendamento Rápido" [level=3] [ref=e100]
+            - paragraph [ref=e101]: Marque seu horário em poucos cliques
+          - generic [ref=e103]:
+            - img [ref=e105]
+            - heading "Qualidade Garantida" [level=3] [ref=e107]
+            - paragraph [ref=e108]: Avaliações reais de clientes satisfeitos
+          - generic [ref=e110]:
+            - img [ref=e112]
+            - heading "Equipe Especializada" [level=3] [ref=e117]
+            - paragraph [ref=e118]: Profissionais treinados e experientes
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - heading "Nossos Serviços" [level=2] [ref=e123]
+          - paragraph [ref=e124]: Escolha o serviço ideal e agende com facilidade
+        - generic [ref=e126]:
+          - textbox "Buscar serviços..." [ref=e127]
+          - combobox [ref=e128]:
+            - option "Todas as categorias" [selected]
+            - option "Comercial"
+            - option "Especializada"
+            - option "Residencial"
+          - button "Limpar" [ref=e129] [cursor=pointer]
+        - generic [ref=e130]:
+          - generic [ref=e132]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e134] [cursor=pointer]:
+                - img [ref=e135]
+              - generic [ref=e138]:
+                - img [ref=e139]
+                - generic [ref=e141]: N/A
+            - generic [ref=e143]:
+              - generic [ref=e144]:
+                - heading "Limpeza Verde Ecológica" [level=3] [ref=e145]
+                - paragraph [ref=e146]: Limpeza com produtos eco-friendly. Até 2 horas (máx 8 horas total).
+              - generic [ref=e147]:
+                - generic [ref=e148]:
+                  - img [ref=e149]
+                  - generic [ref=e152]: min
+                - generic [ref=e153]:
+                  - img [ref=e154]
+                  - generic [ref=e159]: Especializada
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - generic [ref=e162]: R$ 56.00
+                  - generic [ref=e163]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e164] [cursor=pointer]:
+                  - /url: /services/16
+                  - button "Ver Detalhes" [ref=e165]:
+                    - text: Ver Detalhes
+                    - img [ref=e166]
+          - generic [ref=e169]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e171] [cursor=pointer]:
+                - img [ref=e172]
+              - generic [ref=e175]:
+                - img [ref=e176]
+                - generic [ref=e178]: N/A
+            - generic [ref=e180]:
+              - generic [ref=e181]:
+                - heading "Limpeza de Estofados" [level=3] [ref=e182]
+                - paragraph [ref=e183]: Higienização de sofás e poltronas. Até 2 horas (máx 8 horas total).
+              - generic [ref=e184]:
+                - generic [ref=e185]:
+                  - img [ref=e186]
+                  - generic [ref=e189]: min
+                - generic [ref=e190]:
+                  - img [ref=e191]
+                  - generic [ref=e196]: Especializada
+              - generic [ref=e197]:
+                - generic [ref=e198]:
+                  - generic [ref=e199]: R$ 56.00
+                  - generic [ref=e200]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e201] [cursor=pointer]:
+                  - /url: /services/15
+                  - button "Ver Detalhes" [ref=e202]:
+                    - text: Ver Detalhes
+                    - img [ref=e203]
+          - generic [ref=e206]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e208] [cursor=pointer]:
+                - img [ref=e209]
+              - generic [ref=e212]:
+                - img [ref=e213]
+                - generic [ref=e215]: N/A
+            - generic [ref=e217]:
+              - generic [ref=e218]:
+                - heading "Limpeza de Janelas" [level=3] [ref=e219]
+                - paragraph [ref=e220]: Limpeza de vidros e fachada. Até 2 horas (máx 8 horas total).
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - img [ref=e223]
+                  - generic [ref=e226]: min
+                - generic [ref=e227]:
+                  - img [ref=e228]
+                  - generic [ref=e233]: Especializada
+              - generic [ref=e234]:
+                - generic [ref=e235]:
+                  - generic [ref=e236]: R$ 56.00
+                  - generic [ref=e237]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e238] [cursor=pointer]:
+                  - /url: /services/14
+                  - button "Ver Detalhes" [ref=e239]:
+                    - text: Ver Detalhes
+                    - img [ref=e240]
+          - generic [ref=e243]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e245] [cursor=pointer]:
+                - img [ref=e246]
+              - generic [ref=e249]:
+                - img [ref=e250]
+                - generic [ref=e252]: N/A
+            - generic [ref=e254]:
+              - generic [ref=e255]:
+                - heading "Limpeza de Carpete" [level=3] [ref=e256]
+                - paragraph [ref=e257]: Higienização profissional de tapetes e carpetes. Até 3 horas (máx 8 horas total).
+              - generic [ref=e258]:
+                - generic [ref=e259]:
+                  - img [ref=e260]
+                  - generic [ref=e263]: min
+                - generic [ref=e264]:
+                  - img [ref=e265]
+                  - generic [ref=e270]: Especializada
+              - generic [ref=e271]:
+                - generic [ref=e272]:
+                  - generic [ref=e273]: R$ 56.00
+                  - generic [ref=e274]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e275] [cursor=pointer]:
+                  - /url: /services/13
+                  - button "Ver Detalhes" [ref=e276]:
+                    - text: Ver Detalhes
+                    - img [ref=e277]
+          - generic [ref=e280]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e282] [cursor=pointer]:
+                - img [ref=e283]
+              - generic [ref=e286]:
+                - img [ref=e287]
+                - generic [ref=e289]: N/A
+            - generic [ref=e291]:
+              - generic [ref=e292]:
+                - heading "Limpeza Comercial" [level=3] [ref=e293]
+                - paragraph [ref=e294]: Limpeza profissional para escritórios e comércios. Até 4 horas (máx 8 horas total).
+              - generic [ref=e295]:
+                - generic [ref=e296]:
+                  - img [ref=e297]
+                  - generic [ref=e300]: min
+                - generic [ref=e301]:
+                  - img [ref=e302]
+                  - generic [ref=e307]: Comercial
+              - generic [ref=e308]:
+                - generic [ref=e309]:
+                  - generic [ref=e310]: R$ 56.00
+                  - generic [ref=e311]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e312] [cursor=pointer]:
+                  - /url: /services/12
+                  - button "Ver Detalhes" [ref=e313]:
+                    - text: Ver Detalhes
+                    - img [ref=e314]
+          - generic [ref=e317]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e319] [cursor=pointer]:
+                - img [ref=e320]
+              - generic [ref=e323]:
+                - img [ref=e324]
+                - generic [ref=e326]: N/A
+            - generic [ref=e328]:
+              - generic [ref=e329]:
+                - heading "Limpeza Pós-Obra" [level=3] [ref=e330]
+                - paragraph [ref=e331]: Remoção de poeira e resíduos após reformas. Até 6 horas (máx 8 horas total).
+              - generic [ref=e332]:
+                - generic [ref=e333]:
+                  - img [ref=e334]
+                  - generic [ref=e337]: min
+                - generic [ref=e338]:
+                  - img [ref=e339]
+                  - generic [ref=e344]: Residencial
+              - generic [ref=e345]:
+                - generic [ref=e346]:
+                  - generic [ref=e347]: R$ 56.00
+                  - generic [ref=e348]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e349] [cursor=pointer]:
+                  - /url: /services/11
+                  - button "Ver Detalhes" [ref=e350]:
+                    - text: Ver Detalhes
+                    - img [ref=e351]
+          - generic [ref=e354]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e356] [cursor=pointer]:
+                - img [ref=e357]
+              - generic [ref=e360]:
+                - img [ref=e361]
+                - generic [ref=e363]: N/A
+            - generic [ref=e365]:
+              - generic [ref=e366]:
+                - heading "Limpeza Residencial Profunda" [level=3] [ref=e367]
+                - paragraph [ref=e368]: Limpeza completa e detalhada em todas as áreas. Até 4 horas (máx 8 horas total).
+              - generic [ref=e369]:
+                - generic [ref=e370]:
+                  - img [ref=e371]
+                  - generic [ref=e374]: min
+                - generic [ref=e375]:
+                  - img [ref=e376]
+                  - generic [ref=e381]: Residencial
+              - generic [ref=e382]:
+                - generic [ref=e383]:
+                  - generic [ref=e384]: R$ 56.00
+                  - generic [ref=e385]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e386] [cursor=pointer]:
+                  - /url: /services/10
+                  - button "Ver Detalhes" [ref=e387]:
+                    - text: Ver Detalhes
+                    - img [ref=e388]
+          - generic [ref=e391]:
+            - generic:
+              - button "Adicionar aos favoritos" [ref=e393] [cursor=pointer]:
+                - img [ref=e394]
+              - generic [ref=e397]:
+                - img [ref=e398]
+                - generic [ref=e400]: N/A
+            - generic [ref=e402]:
+              - generic [ref=e403]:
+                - heading "Limpeza Residencial Básica" [level=3] [ref=e404]
+                - paragraph [ref=e405]: Varredura, limpeza de pisos, banheiros e cozinha. Serviço de até 2 horas (máx 8 horas total).
+              - generic [ref=e406]:
+                - generic [ref=e407]:
+                  - img [ref=e408]
+                  - generic [ref=e411]: min
+                - generic [ref=e412]:
+                  - img [ref=e413]
+                  - generic [ref=e418]: Residencial
+              - generic [ref=e419]:
+                - generic [ref=e420]:
+                  - generic [ref=e421]: R$ 56.00
+                  - generic [ref=e422]: (incl. taxa)
+                - link "Ver Detalhes" [ref=e423] [cursor=pointer]:
+                  - /url: /services/9
+                  - button "Ver Detalhes" [ref=e424]:
+                    - text: Ver Detalhes
+                    - img [ref=e425]
+        - link "Ver Todos os Serviços" [ref=e428] [cursor=pointer]:
+          - /url: /services
+          - button "Ver Todos os Serviços" [ref=e429]:
+            - text: Ver Todos os Serviços
+            - img [ref=e430]
+      - generic [ref=e434]:
+        - generic [ref=e435]:
+          - heading "Pronto para uma limpeza profissional?" [level=2] [ref=e436]
+          - paragraph [ref=e437]: Agende seu serviço hoje mesmo e tenha uma experiência excepcional
+        - generic [ref=e438]:
+          - link "Criar Conta Grátis" [ref=e439] [cursor=pointer]:
+            - /url: /auth/register
+            - button "Criar Conta Grátis" [ref=e440]:
+              - img [ref=e441]
+              - text: Criar Conta Grátis
+          - link "Falar com Especialista" [ref=e444] [cursor=pointer]:
+            - /url: /contact
+            - button "Falar com Especialista" [ref=e445]
+  - button [ref=e446] [cursor=pointer]:
+    - img [ref=e447]
+  - generic [ref=e453] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e454]:
+      - img [ref=e455]
+    - generic [ref=e458]:
+      - button "Open issues overlay" [ref=e459]:
+        - generic [ref=e460]:
+          - generic [ref=e461]: "0"
+          - generic [ref=e462]: "1"
+        - generic [ref=e463]: Issue
+      - button "Collapse issues badge" [ref=e464]:
+        - img [ref=e465]
+  - alert [ref=e467]
+```

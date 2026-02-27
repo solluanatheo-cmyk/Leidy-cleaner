@@ -113,7 +113,7 @@ export class ReminderService {
           b.total_price,
           b.address,
           b.notes,
-          u.name as customer_name,
+          u.full_name as customer_name,
           u.email as customer_email,
           s.name as service_name
         FROM bookings b
