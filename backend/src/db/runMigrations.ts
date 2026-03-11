@@ -136,8 +136,6 @@ async function runMigrations() {
 
     logger.info('✅ All migrations completed successfully!');
   } catch (err) {
-    // Log full error to console as well to ensure stack is visible in CI/logs
-    console.error('Full migration error:', err);
     logger.error('❌ Migration failed:', err);
     throw err;  // Re-throw so caller can handle
   }
